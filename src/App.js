@@ -1,42 +1,97 @@
-import React from 'react'
-import './index.css';
+import React, { Profiler } from 'react'
+// import './index.css';
 import firebase from './firebase';
 
 // import Header from './Header.js';
 // import Footer from './Footer.js';
 import Selection from './Selection.js';
-import DisplayWinners from './DisplayWinners.js'
+import Displaywinners from './Displaywinners.js'
 import Statue from './assets/statue.png';
 
 import { useEffect, useState } from 'react';
 // import axios from 'axios';
 
 function App() {
+
   const [allProfiles, setAllProfiles] = useState([]);
-  
+
+  const [yearChoice, setYearChoice] = useState('')
+
+  const [userSelectedYear, setUserSelectedYear] = useState([])
+
+  const [newState, setNewState] = useState([])
+
   useEffect(() => {
     // console.log('hello')
     const dbRef = firebase.database().ref();
 
     // your data homes is an array, so you would have to iterate over the array using Array.prototype.map() for it to work.
-   
+
+    // dbRef.on(handleSubmit, (data) => {
+    //   console.log(data.val());
+    // });
+    const copyArray = []
 
     dbRef.on('value', (response) => {
 
-      const newState = [];
+      
       const data = response.val();
+      
+
 
       for (let index in data) {
-        newState.push(data[index]);
+        copyArray.push(data[index])
+        // setNewState(data[index]);
       }
       
 
-      setAllProfiles(newState);
-
-      console.log(newState)
     });
+    
+     setAllProfiles(copyArray);
 
     },[])
+
+    
+    
+    console.log(allProfiles)
+
+    // console.log(yearChoice)
+    // console.log(allProfiles.year)
+
+        
+  const handleChange = (event) => {
+    setYearChoice(event.target.value);
+  }
+
+  // if (profile.year === yearChoice) {
+  //   setUserSelectedYear(profile)
+  // }
+
+ 
+
+  const temp = []
+
+  for (let profile of allProfiles) {
+    console.log(profile)
+    temp.push(profile)
+    
+  }
+ 
+
+
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    // setUserSelection(yearChoice)
+
+  //   setUserSelectedYear(temp)
+  //  console.log(userSelectedYear, 'test test')
+  }
+    
+  // console.log(userSelectedYear, 'user array')
+  // console.log(userSelection, "User Selection")
+  
 
   return (
     <div className='containerMain'>
@@ -44,8 +99,8 @@ function App() {
       <img src={Statue} alt="Oscar statue" />
       <div className="containerData">
       <h1>Welcome To Oscar Finder</h1>
-        <Selection yearChoice={yearChoice} />
-      <DisplayWinners allProfiles={allProfiles}  />
+      <Selection handleSubmit={handleSubmit} yearChoice={yearChoice} handleChange={handleChange}/>
+      <Displaywinners allProfiles={allProfiles}  />
       </div>
 
       <img src={Statue} alt="Oscar statue" />
@@ -56,15 +111,6 @@ function App() {
     
 export default App;
 
-//  <div className="App">
-//               <img src={Statue} alt="Oscar statue" />
-//               <div className="Interface">
-//                 <h1>Welcome to Oscar Finder</h1>
-//                 <DisplayWinners />
-//                 {/* <Selection /> */}
-//               </div>
-//               <img src={Statue} alt="Oscar statue" />
-//             </div>
 
 
 

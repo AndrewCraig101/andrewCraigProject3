@@ -2,25 +2,14 @@
 import { useState } from 'react';
 
      
-const Selection = () => {    
-
-        const [yearChoice, setYearChoice] = useState('')
-        const [userSelection, setUserSelection] = useState('')
-       
-   
-        const handleSubmit = (event) => {
-                event.preventDefault();
-                setYearChoice(userSelection) 
-                console.log(yearChoice)     
-        }
-
-        const handleChange = (event) => {
-                event.preventDefault();
-                setUserSelection(event.target.value);
-                 
-        }
+const Selection = ({handleSubmit, handleChange, yearChoice}) => {    
 
         
+       
+
+        // setUserSelection(yearChoice)
+
+        // console.log(userSelection)
 
         return (
 
@@ -30,7 +19,7 @@ const Selection = () => {
                         <select
                                 name="movieYears"
                                 id="movieYears"
-                                value={userSelection}
+                                value={yearChoice}
                                 onChange={handleChange}>
                                 
                                 <option value="placeholder" disabled>Choose one:</option>
@@ -45,7 +34,7 @@ const Selection = () => {
                 
         )
 }
-// }
+
 export default Selection;
 
 
@@ -82,12 +71,12 @@ export default Selection;
         //      </select> 
         //  </form> 
 
-             {/* getUserInput = () => {
+             /* getUserInput = () => {
         const selection = document.getElementsById('#movieYears');
         selection.addEventListener('click', (event) => {
         --store selected year in variable;
         })
-        } */}
+        } */
         // </>
 //     )
 // }

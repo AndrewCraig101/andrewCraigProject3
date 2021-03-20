@@ -1,12 +1,11 @@
-const DisplayWinners = (props) => {
-    const { allProfiles, yearChoice } = props;
-
-    console.log(yearChoice)
+const Displaywinners = (props) => {
     
-    const filteredProfiles = allProfiles.filter((item) => {
+    const { allProfiles, yearChoice } = props;
+  
+    const filteredProfiles = allProfiles.filter((profile) => {
+
         return (
-            (item.year === yearChoice && item.winner)
-            
+            (profile.year === yearChoice && profile.winner)  
         )
     })
 
@@ -16,7 +15,7 @@ const DisplayWinners = (props) => {
             {
                 filteredProfiles.length === 0 ?
                     <h2>No winners found! Check back later</h2>
-                    :
+                    : 
                     <>
                         <h2>Winners!</h2>
                         <div className="winners">
@@ -41,7 +40,7 @@ const DisplayWinners = (props) => {
         </section>
     )
 }
-export default DisplayWinners;
+export default Displaywinners;
 
 
 
